@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام لعبة RPG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>⚔️ لعبة RPG الملحمة ⚔️</h1>
+        
+        <!-- قسم اختيار الفئة -->
+        <div class="class-selection" id="classSelection">
+            <h2>اختر فئتك</h2>
+            <div class="classes-grid">
+                <button class="class-btn" onclick="selectClass('assassin')">
+                    <span class="class-icon">🗡️</span>
+                    <span class="class-name">المغتال</span>
+                    <span class="class-desc">سرعة عالية - تخفي 10 ثواني</span>
+                </button>
+                <button class="class-btn" onclick="selectClass('warrior')">
+                    <span class="class-icon">⚔️</span>
+                    <span class="class-name">السيّاف</span>
+                    <span class="class-desc">قوة عالية - دم أكثر</span>
+                </button>
+                <button class="class-btn" onclick="selectClass('mage')">
+                    <span class="class-icon">✨</span>
+                    <span class="class-name">الساحر</span>
+                    <span class="class-desc">مانا قوية - دم قليل</span>
+                </button>
+                <button class="class-btn" onclick="selectClass('spellblade')">
+                    <span class="class-icon">🔮</span>
+                    <span class="class-name">سيّاف السحر</span>
+                    <span class="class-desc">توازن بين السحر والقوة</span>
+                </button>
+                <button class="class-btn" onclick="selectClass('necromancer')">
+                    <span class="class-icon">💀</span>
+                    <span class="class-name">مستدعي الموتى</span>
+                    <span class="class-desc">استدعاء خدم</span>
+                </button>
+                <button class="class-btn" onclick="selectClass('beastmaster')">
+                    <span class="class-icon">🐺</span>
+                    <span class="class-name">مروّض الوحوش</span>
+                    <span class="class-desc">تدريب الوحوش</span>
+                </button>
+                <button class="class-btn" onclick="selectClass('summoner')">
+                    <span class="class-icon">🌟</span>
+                    <span class="class-name">مستدعي الوحوش</span>
+                    <span class="class-desc">استدعاء من الدائرة السحرية</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- قسم اللعبة -->
+        <div class="game-container" id="gameContainer" style="display: none;">
+            <!-- شاشة اللاعب -->
+            <div class="player-section">
+                <div class="character-display">
+                    <div class="character-avatar" id="characterAvatar"></div>
+                    <div class="character-name" id="characterName"></div>
+                </div>
+                
+                <div class="stats-box">
+                    <h3>إحصائيات الشخصية</h3>
+                    <div class="stat-bar">
+                        <label>الدم (HP)</label>
+                        <div class="bar-container">
+                            <div class="bar-fill" id="healthBar" style="width: 100%;"></div>
+                        </div>
+                        <span id="healthText">100/100</span>
+                    </div>
+                    
+                    <div class="stat-bar">
+                        <label>المانا (Mana)</label>
+                        <div class="bar-container">
+                            <div class="bar-fill mana" id="manaBar" style="width: 100%;"></div>
+                        </div>
+                        <span id="manaText">50/50</span>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span>⚡ القوة</span>
+                            <span id="strengthStat">10</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>🏃 السرعة</span>
+                            <span id="speedStat">10</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>🛡️ الدفاع</span>
+                            <span id="defenseStat">10</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>✨ السحر</span>
+                            <span id="magicStat">10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شاشة المستويات -->
+            <div class="levels-section">
+                <h3>المستويات</h3>
+                <div class="levels-list" id="levelsList"></div>
+            </div>
+
+            <!-- نظام المخزون -->
+            <div class="inventory-section">
+                <h3>📦 المخزون</h3>
+                <div class="inventory-box">
+                    <div class="inventory-item">
+                        <label>النقاط الإجمالية</label>
+                        <div class="inventory-value" id="totalPoints">0</div>
+                    </div>
+                    <div class="inventory-item">
+                        <label>المستوى الحالي</label>
+                        <div class="inventory-value" id="currentLevel">1</div>
+                    </div>
+                    <div class="inventory-item">
+                        <label>النقاط المكتسبة</label>
+                        <div class="inventory-value" id="levelPoints">0/4</div>
+                    </div>
+                    <div class="inventory-item">
+                        <label>الأسلحة المتوفرة</label>
+                        <div class="inventory-value" id="weaponCount">0</div>
+                    </div>
+                    <div class="inventory-item">
+                        <label>السيوف</label>
+                        <div class="inventory-value" id="swordCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم المهارات -->
+            <div class="skills-section">
+                <h3>🎯 المهارات</h3>
+                <div class="skills-grid" id="skillsGrid"></div>
+            </div>
+
+            <!-- قسم الأعداء -->
+            <div class="enemies-section">
+                <h3>👹 الأعداء</h3>
+                <div class="enemies-grid" id="enemiesGrid"></div>
+            </div>
+
+            <!-- أزرار العودة -->
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="resetGame()">⬅️ اختر فئة أخرى</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
